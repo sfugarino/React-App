@@ -17,12 +17,12 @@ class Details extends React.Component {
 
   render() {
     return (
-      <div class="row">
-        <div class="col-1">
-          <div class="text-right">ID:</div>
-          <div class="text-right">Address:</div>
+      <div className="row">
+        <div className="col-1">
+          <div className="text-right">ID:</div>
+          <div className="text-right">Address:</div>
         </div>
-        <div class="col-4">
+        <div className="col-4">
           <div>{this.state.parlor.id}</div>
           <div>
             <div>{this.state.parlor.location.address1}</div>
