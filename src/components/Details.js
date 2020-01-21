@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { getParlorDetails } from "../api/parlorApi";
 
-function Details() {
-  const [parlor, setParlor] = useState({});
+function Details(props) {
+  const [parlor, setParlor] = useState({ location: {} });
 
   useEffect(() => {
-    getParlorDetails(this.props.match.params.id).then(_parlor =>
-      setParlor(_parlor)
-    );
+    getParlorDetails(props.match.params.id).then(_parlor => setParlor(_parlor));
   });
 
   return (
