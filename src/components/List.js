@@ -6,69 +6,66 @@ import { Link } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import logo from "../logo.svg";
 
-class List extends React.Component {
-  state = {
-    loading: false,
-    parlors: []
-  };
+function List() {
+  const [parlors, setParlors] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  componentDidMount() {
-    this.setState({ loading: true, parlors: [] });
-    getTopParlors().then(parlors =>
-      this.setState({ loading: false, parlors: parlors })
-    );
-  }
+  useEffect(() => {
+    setLoading(true);
+    getTopParlors().then(_parlors => {
+      setParlors(_parlors);
+      setLoading(false);
+    });
+  }, []);
 
-  render() {
-    return (
-      <>
-        {this.state.loading ? (
-          <Row>
-            <div className="loader">
-              <img src={logo} className="App-logo" alt="logo" />
-            </div>
-          </Row>
-        ) : (
-          <Row>
-            {this.state.parlors.map(parlor => {
-              return (
-                <Card style={{ width: "18rem" }} key={parlor.id}>
-                  <Card.Header className="bg-primary text-white">
-                    {parlor.name}
-                  </Card.Header>
-                  <Card.Body>
+  return (
+    <>
+      {loading ? (
+        <Row>
+          <div className="loader">
+            <img src={logo} className="App-logo" alt="logo" />
+          </div>
+        </Row>
+      ) : (
+        <Row>
+          {parlors.map(parlor => {
+            return (
+              <Card style={{ width: "18rem" }} key={parlor.id}>
+                <Card.Header className="bg-primary text-white">
+                  {parlor.name}
+                </Card.Header>
+                <Card.Body>
+                  <div>
+                    <div>{parlor.location.address1}</div>
                     <div>
-                      <div>{parlor.location.address1}</div>
-                      <div>
-                        {`${parlor.location.city}, ${parlor.location.state} ${parlor.location.zip_code}`}
-                      </div>
+                      {`${parlor.location.city}, ${parlor.location.state} ${parlor.location.zip_code}`}
                     </div>
-                    <div className="card-text">
-                      <StarRatings
-                        rating={parlor.rating}
-                        starRatedColor="gold"
-                        starDimension="25px"
-                        starSpacing="3px"
-                      ></StarRatings>
-                    </div>
-                    <div className="card-text font-italic text-justify">
-                      {parlor.review.text}
-                    </div>
-                    <div className="card-text font-weight-bold font-italic text-right">
-                      {parlor.review.user.name}
-                    </div>
-                    <Link to={"/details/" + parlor.id} className="card-link">
-                      Details
-                    </Link>
-                  </Card.Body>
-                </Card>
-              );
-            })}
-          </Row>
-        )}
-      </>
-    );
-  }
+                  </div>
+                  <div className="card-text">
+                    <StarRatings
+                      rating={parlor.rating}
+                      starRatedColor="gold"
+                      starDimension="25px"
+                      starSpacing="3px"
+                    ></StarRatings>
+                  </div>
+                  <div className="card-text font-italic text-justify">
+                    {parlor.review.text}
+                  </div>
+                  <div className="card-text font-weight-bold font-italic text-right">
+                    {parlor.review.user.name}
+                  </div>
+                  <Link to={"/details/" + parlor.id} className="card-link">
+                    Details
+                  </Link>
+                </Card.Body>
+              </Card>
+            );
+          })}
+        </Row>
+      )}
+    </>
+  );
 }
 
 export default List;
