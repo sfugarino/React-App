@@ -12,4 +12,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-Will start api server on port 3001
+Application will start api server on port 3001
+
+Typescript version available at https://github.com/sfugarino/ADP-Developer-Challenge-TS
